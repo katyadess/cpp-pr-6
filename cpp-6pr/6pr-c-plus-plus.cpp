@@ -4,13 +4,9 @@
 #include <string>
 #include <windows.h>
 #include <algorithm>
-
 using namespace std;
 
-int main() {
-
-	SetConsoleCP(65001);
-	SetConsoleOutputCP(65001);
+void program1() {
 
 	vector<string> cars = { "Volvo", "BMW", "Ford", "Mazda", "Peugeot", "Fiat", "Tesla"}; // 1
 	for (int i = 0; i < cars.size(); i++) {
@@ -36,7 +32,7 @@ int main() {
 
 	vector<string> countries = { "Ukraine", "Italy", "France", "Thailand", "Japan", "Finland", "Netherlands" }; // 5
 
-	int n = 2;
+	int n = 5;
 	vector<string>::iterator i = find(cars.begin(), cars.end(), "Ford");
 	
 	int afterI = cars.end() - (i + 1);
@@ -44,7 +40,9 @@ int main() {
 		n = afterI;
 	}
 
-	cars.erase(i + 1, i + 1 + n); // 6
+	if (i != cars.end()) {
+		cars.erase(i + 1, i + 1 + n); // 6
+	}
 
 	for (it = cars.begin(); it != cars.end(); it++) {
 		cout << *it << " ";
@@ -73,4 +71,11 @@ int main() {
 
 }
 
+
+int main() {
+	SetConsoleCP(65001);
+	SetConsoleOutputCP(65001);
+
+	program1();
+}
 
