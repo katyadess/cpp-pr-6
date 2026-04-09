@@ -158,11 +158,109 @@ void program2() {
 	//	});
 }
 
+struct Book {
+
+	string title;
+	int price;
+
+};
+bool operator<(const Book& lhs, const Book& rhs) {
+	return tie(lhs.price, lhs.title) < tie(rhs.price, rhs.title);
+}
+
+
+void displayBooks(const vector<Book>& books) {
+
+	for (auto i = books.begin(); i != books.end(); i++) {
+		cout << (*i).title << ", price: " << (*i).price << "$" << endl;
+	}
+}
+
+void program3() {
+	vector<Book> books = {
+		{"Harry Potter", 250},
+		{"The Hobbit", 330},
+		{"1984", 70},
+		{"Clean Code", 140},
+		{"Dune", 400},
+		{"War and Peace", 115},
+		{"The Alchemist", 150},
+		{"Sherlock Holmes", 200},
+		{"The Catcher in the Rye", 130},
+		{"To Kill a Mockingbird", 160},
+		{"Brave New World", 210},
+		{"The Lord of the Rings", 400},
+		{"Fahrenheit 451", 110}
+	}; // 1
+	displayBooks(books);
+	cout << endl;
+
+	for (int i = 0; i < books.size() - 1; i++) {
+		for (int j = 0; j < books.size() - i - 1; j++) {
+			if (books[j+1].price > books[j].price) {
+				swap(books[j+1], books[j]);
+			}
+		}
+	} // 2
+
+	displayBooks(books); // 3
+	cout << endl;
+
+	set<Book> expensiveBooks;
+	int expensivePrice = 200;
+
+	for (int i = 0; i < books.size(); i++) {
+		if (books[i].price > expensivePrice) {
+			expensiveBooks.insert(books[i]);
+		}
+	} // 4, 5
+
+	for (auto i = expensiveBooks.begin(); i != expensiveBooks.end(); i++) {
+		cout << (*i).title << ", price: " << (*i).price << "$" << endl;
+	} // 6
+
+	cout << endl;
+	
+	for (int i = 0; i < books.size() - 1; i++) {
+		for (int j = 0; j < books.size() - i - 1; j++) {
+			if (books[j].price > books[j+1].price) {
+				swap(books[j], books[j+1]);
+			}
+		}
+	} // 7, сет і так відсортований у порядку зростання
+
+	displayBooks(books);
+	cout << endl;
+
+	vector<Book> unionContainer;
+	unionContainer.insert(unionContainer.end(), books.begin(), books.end());
+	unionContainer.insert(unionContainer.end(), expensiveBooks.begin(), expensiveBooks.end()); // 9
+
+	displayBooks(unionContainer); // 10
+	cout << endl; 
+
+	int countEl = 0;
+	int requirement = 399;
+	for (int i = 0; i < unionContainer.size(); i++) {
+		if (unionContainer[i].price > requirement) {
+			countEl += 1;
+		}
+	} // 11
+
+	cout << "Count of books, that meet the requirements: " << countEl << endl;
+
+	if (countEl > 0) { // 12
+		cout << "в третьому контейнері є елемент, що задовільняє заданій умові (ціна більша за " << requirement << ")" << endl;
+	}
+	else {
+		cout << "в третьому контейнері немає елемента, що задовільняє заданій умові (ціна більша за " << requirement << ")" << endl;
+	}
+}
+
 
 int main() {
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
 
-	program2();
 }
 
