@@ -71,11 +71,98 @@ void program1() {
 
 }
 
+struct Student {
+
+	string lastName;
+	string faculty;
+
+};
+
+void displayStudents(const vector<Student> &students) {
+		
+	for (auto i = students.begin(); i != students.end(); i++) {
+		cout << (*i).lastName << ", faculty: " << (*i).faculty << endl;
+	}
+}
+
+void program2() {
+
+	vector<Student> students = {
+		{"Smith", "IT"},
+		{"Johnson", "Finance"},
+		{"Brown", "Law"},
+		{"Williams", "Engineering"},
+		{"Taylor", "Mathematics"},
+		{"Anderson", "Biology"},
+		{"Thomas", "Physics"},
+		{"Davis", "Medicine"},
+		{"Wilson", "Architecture"}
+
+	}; // 1
+
+	for (int i = 0; i < students.size(); i++) {
+		cout << students[i].lastName << ", faculty: " << students[i].faculty << endl;
+	}; // 2
+
+	cout << endl;
+
+	students.erase(students.end() - 1); // 3
+	students.erase(students.begin() + 3); // 3
+	students[students.size() - 2] = { "Taylor", "Computer Science" }; // 3
+	students[1].lastName = "Clark"; // 3
+
+	displayStudents(students); // 4
+
+	vector<Student> newStudents = {
+		{"Young", "Architecture"},
+		{"Allen", "Biology"},
+		{"White", "Chemistry"},
+		{"Harris", "Philosophy"}
+	}; // 5
+
+	int n = 3;
+	string wantedLastName = "Clark";
+	auto neededIt = students.end();
+
+	for (auto i = students.begin(); i != students.end(); i++) {
+		if ((*i).lastName == wantedLastName) {
+			neededIt = i;
+			break;
+		}
+	};
+
+	if (neededIt != students.end()) {
+
+		int afterNeededIt = students.end() - (neededIt + 1);
+
+		if (n > afterNeededIt) {
+			n = afterNeededIt;
+		}
+
+		students.erase(neededIt + 1, neededIt + 1 + n); // 6
+	}
+
+	students.insert(students.end(), newStudents.begin(), newStudents.end()); // 6
+
+	cout << endl;
+
+	displayStudents(students); // 7
+
+	cout << endl;
+
+	displayStudents(newStudents); // 7
+
+	//auto i = find_if(students.begin(), students.end(), 
+	//	[wantedLastName] (const Student& s) {
+	//		return s.lastName == "Clark";
+	//	});
+}
+
 
 int main() {
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
 
-	program1();
+	program2();
 }
 
